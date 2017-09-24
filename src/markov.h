@@ -62,6 +62,15 @@ public:
     TextChain.clear();
   }
 
+  /// Regenerate the Markov chain from the file \p filename. Only required if
+  /// you want to reuse the object with a different file. Returns a boolean
+  /// value indicating success or failure and writes a message to \p std::cerr
+  /// if something goes wrong.
+  ///
+  /// \param filename Path to the input file
+  /// \return \p true on success, \p false otherwise
+  bool seedWithFile(const std::string& filename);
+
   /// Generate random text using the file read before and return the random
   /// text inside a string.
   ///

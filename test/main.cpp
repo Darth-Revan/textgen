@@ -36,13 +36,20 @@
 
 using namespace textgen;
 
-TEST_CASE("Copy constructor", "[markov]") {
+TEST_CASE("Copy constructor", "[textgen]") {
   MarkovChain k("gone.txt");
   MarkovChain m(k);
   REQUIRE(k.getChainLength() == m.getChainLength());
 }
 
-TEST_CASE("Text Generation 'gone.txt'", "[markov]") {
+TEST_CASE("Reseed generator", "[textgen]") {
+  MarkovChain k("gone.txt");
+  auto len = k.getChainLength();
+  k.seedWithFile("lorem_ipsum.txt");
+  REQUIRE(k.getChainLength() != len);
+}
+
+TEST_CASE("Text Generation 'gone.txt'", "[textgen]") {
   MarkovChain k("gone.txt");
   REQUIRE(k.getChainLength() > 0);
   auto text = k.generateText(20);
@@ -53,7 +60,7 @@ TEST_CASE("Text Generation 'gone.txt'", "[markov]") {
   REQUIRE(text.empty());
 }
 
-TEST_CASE("Text Generation 'lorem_ipsum.txt'", "[markov]") {
+TEST_CASE("Text Generation 'lorem_ipsum.txt'", "[textgen]") {
   MarkovChain k("lorem_ipsum.txt");
   REQUIRE(k.getChainLength() > 0);
   auto text = k.generateText(20);

@@ -46,6 +46,17 @@ MarkovChain::MarkovChain(const std::string& filename) {
   in.close();
 }
 
+bool MarkovChain::seedWithFile(const std::string& filename) {
+  std::ifstream in;
+  in.open(filename, std::ios_base::in);
+  if (!in.is_open()) {
+    return false;
+  }
+  buildChain(in);
+  in.close();
+  return true;
+}
+
 std::ostream& MarkovChain::printChain(std::ostream& stream) const {
   stream << "-------------------------\n";
   stream << "Generated Markov Chain:\n\n";
