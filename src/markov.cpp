@@ -33,6 +33,7 @@
 #include "markov.h"
 #include <fstream>
 #include <sstream>
+#include <cstring>
 
 namespace textgen {
 
@@ -40,7 +41,7 @@ MarkovChain::MarkovChain(const std::string& filename) {
   std::ifstream in;
   in.open(filename, std::ios_base::in);
   if (!in.is_open()) {
-    throw std::runtime_error("Could not open file for reading!");
+    throw std::runtime_error("Could not open file for reading: " + std::string(strerror(errno)));
   }
   buildChain(in);
   in.close();
@@ -131,7 +132,7 @@ std::string MarkovChain::generateText(unsigned int numWords) const {
 
 std::ostream& MarkovChain::generateText(std::ostream& stream,
                                         unsigned int numWords) const {
-  stream << generateText(numWords);
+  stream << generateText(numWords) << "\n";
   return stream;
 }
 

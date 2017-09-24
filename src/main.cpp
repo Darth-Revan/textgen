@@ -30,8 +30,39 @@
  * Main source file of \p textgen.
  */
 
+#include <tclap/CmdLine.h>
 #include "markov.h"
 
-int main() {
+int main(int argc, const char* argv[]) {
+  try {
+    TCLAP::CmdLine cmd("Random text generator based on Markov chains written in C++14", ' ', TEXTGEN_VERSION);
+    TCLAP::ValueArg<std::string> fileArg("f", "file", "The file to use for the Markov chain", true, "", "string");
+    TCLAP::ValueArg<unsigned int> numArg("n", "num", "The number of words to generate (Default: 20)", false, 20, "number");
+    TCLAP::SwitchArg printArg("p", "print", "Print the constructed Markov chain instead of generating text");
+
+    cmd.add(fileArg);
+    cmd.add(numArg);
+    cmd.add(printArg);
+    cmd.parse(argc, argv);
+
+    if (fileArg.getValue().empty()) {
+      std::cerr  << "Argument for '-f' must not be empty!\n";
+      return 1;
+    }
+    try {
+      textgen::MarkovChain chain(fileArg.getValue());
+      if (printArg.getValue()) {
+        chain.printChain(std::cout);
+      } else {
+        chain.generateText(std::cout, numArg.getValue());
+      }
+    } catch (const std::runtime_error& ex) {
+      std::cerr << ex.what() << "\n";
+      return 1;
+    }
+  } catch (const TCLAP::ArgException& e) {
+    std::cerr << e.error() << "\n";
+    return 1;
+  }
   return 0;
 }

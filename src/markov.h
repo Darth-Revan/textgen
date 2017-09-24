@@ -47,9 +47,10 @@ class MarkovChain final {
 
 public:
   /// Constructor of \p MarkovChain. Takes the path to a text file to use for
-  /// generation.
+  /// generation. Throws a \p runtime_error i the file could not be read.
   ///
   /// \param filename Path to the input file
+  /// \throws runtime_error If failed to read file
   explicit MarkovChain(const std::string& filename);
 
   /// Copy constructor for \p Markov chain.
