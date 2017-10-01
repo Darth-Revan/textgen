@@ -1,10 +1,10 @@
 # textgen
 
-Random text generator based on Markov chains written in C++14
+Random text generator based on Markov chains written in C++11
 
 ## Building
 
-In order to build the project, you will need `cmake` and C++14-compliant compiler (e.g. GCC or Clang). The command line interface is based on the header-only library [TCLAP](http://tclap.sourceforge.net/), so the headers of this awesome library need to be installed on your system.
+In order to build the project, you will need `cmake` and C++11-compliant compiler (e.g. GCC or Clang). The command line interface is based on the header-only library [TCLAP](http://tclap.sourceforge.net/), so the headers of this awesome library need to be installed on your system.
 
 To build the project, change to the project directory, create a new build directory (not required, but I strongly recommend to make out-of-source builds) and compile the tool:
 

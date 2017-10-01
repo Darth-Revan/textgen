@@ -35,7 +35,7 @@
 
 int main(int argc, const char* argv[]) {
   try {
-    TCLAP::CmdLine cmd("Random text generator based on Markov chains written in C++14", ' ', TEXTGEN_VERSION);
+    TCLAP::CmdLine cmd("Random text generator based on Markov chains written in C++11", ' ', TEXTGEN_VERSION);
     TCLAP::ValueArg<std::string> fileArg("f", "file", "The file to use for the Markov chain", true, "", "string");
     TCLAP::ValueArg<unsigned int> numArg("n", "num", "The number of words to generate (Default: 20)", false, 20, "number");
     TCLAP::SwitchArg printArg("p", "print", "Print the constructed Markov chain instead of generating text");
